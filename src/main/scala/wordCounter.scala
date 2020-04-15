@@ -23,9 +23,7 @@ object wordCounter {
 //      группируем кортежи по первому элементу, вторые элементы складываем
       .reduceByKey((a, b) => a + b)
 //      сортируем слова в порядке убывания их вхождений в текст
-      .map(pair => pair.swap)
-      .sortByKey(false)
-      .map(pair => pair.swap)
+      .sortBy(x => x._2, false)
 //        преобразовываем RDD в DataFrame и сохраняем в CSV-фаил
         val df = spark.createDataFrame(wordCount)
         df.write.format("csv").save("src/main/resources/wordCountResult")
